@@ -7,23 +7,17 @@ module Convert
 
     def call
       context.rows = rows
-      return if rows.any?
-
+      raise NoMethodError if rows.blank?
+    rescue NoMethodError
       context.fail!(errors: { message: 'Create CSV Rows Fail!' })
     end
 
     private
 
     def rows
-      rows = []
-      context.json_array.each do |json_hash|
-        row = []
-        context.header_attr.each do |key|
-          row << json_hash[key]
-        end
-        rows << row
+      @rows ||= context.json_array.map do |json_hash|
+        context.header.flat_map { |key| json_hash[key] }
       end
-      rows
     end
   end
 end

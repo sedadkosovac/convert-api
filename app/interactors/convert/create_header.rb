@@ -7,22 +7,17 @@ module Convert
 
     def call
       context.header = header
-      context.header_attr = header_attr
-      return if header_attr.any?
-
+      raise NoMethodError if header.blank?
+    rescue NoMethodError
       context.fail!(errors: { message: 'Create Header Fail!' })
     end
 
     private
 
     def header
-      @header ||= header_attr.join(',')
-    end
-
-    def header_attr
-      @header_attr ||= context.json_array
-                              .flat_map(&:keys)
-                              .uniq
+      @header ||= context.json_array
+                         .flat_map(&:keys)
+                         .uniq
     end
   end
 end

@@ -1,24 +1,37 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Recommend ruby 2.6.1 BUT not required in Gemfile
+Rails 6.0.0.beta3
 
-Things you may want to cover:
+## STEPS
+  1. bundle install
+  2. rspec spec
+  3. rails s
 
-* Ruby version
+Endpoint for testing in DEV
 
-* System dependencies
+POST http://localhost:3000/convert
 
-* Configuration
+Tested with [POSTMAN](https://www.getpostman.com/)
 
-* Database creation
+### EXAMPLE JSON array
+```JSON
+[
+  {
+    "name": "John Snow",
+    "age": 29,
+    "height": 22
+  },
+  {
+    "name": "Iron Man",
+    "age": 39
+  }
+]
+```
+### CSV expected format
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+```CSV
+name,age,height
+John Snow,29,22
+Iron Man,39,
+```
